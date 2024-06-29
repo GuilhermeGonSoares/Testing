@@ -25,4 +25,8 @@
       <ProjectReference Include="..\TODO\TODO.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="IntegrationTesting\" />
+    </ItemGroup>
+
 </Project>
