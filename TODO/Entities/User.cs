@@ -1,4 +1,5 @@
 ﻿using TODO.Exceptions;
+using ValidationException = System.ComponentModel.DataAnnotations.ValidationException;
 
 namespace TODO.Entities;
 
@@ -16,9 +17,13 @@ public class User : IAggregateRoot
     
     public User(string username)
     {
+        if (string.IsNullOrEmpty(username))
+            throw new ValidationException("Username is required");
         Username = username;
         Todos = [];
     }
+    
+    public IReadOnlyCollection<Todo> AllTodos => Todos.ToList().AsReadOnly();
 
     public void AddTodo(Todo newTodo)
     {
@@ -52,7 +57,7 @@ public class User : IAggregateRoot
         todo.MarkAsCompleted();
     }
     
-    public void MarkTodoAsIncompleted(int todoId)
+    public void MarkTodoAsUncompleted(int todoId)
     {
         var todo = Todos.FirstOrDefault(t => t.Id == todoId);
         if (todo is null)
