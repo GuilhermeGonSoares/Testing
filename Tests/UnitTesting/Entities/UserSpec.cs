@@ -137,7 +137,8 @@ public class UserSpec
     public void ShouldMarkTodoAsMarkTodoAsUncompleted()
     {
         //arrange
-        var todo = new Todo("Title", "Description") { Id = 1, IsCompleted = true };
+        var todo = new Todo("Title", "Description") { Id = 1 };
+        todo.MarkAsCompleted();
         var user = new User("GuiGo");
         user.AddTodo(todo);
         //act

@@ -4,12 +4,12 @@ namespace TODO.Entities;
 
 public class Todo
 {   
-    public int Id { get; set; }
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public bool IsCompleted { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
+    public int Id { get; init;}
+    public string Title { get; private set;}
+    public string Description { get; private set;}
+    public bool IsCompleted { get; private set;}
+    public DateTime CreatedAt { get; }
+    public DateTime UpdatedAt { get; private set; }
     
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public Todo()
