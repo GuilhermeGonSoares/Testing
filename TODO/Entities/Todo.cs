@@ -1,4 +1,6 @@
-﻿namespace TODO.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TODO.Entities;
 
 public class Todo
 {   
@@ -17,6 +19,10 @@ public class Todo
     
     public Todo(string title, string description)
     {
+        if (string.IsNullOrEmpty(title))
+            throw new ValidationException("Title is required");
+        if (string.IsNullOrEmpty(description))
+            throw new ValidationException("Description is required");
         Title = title;
         Description = description;
         IsCompleted = false;
@@ -38,6 +44,10 @@ public class Todo
     
     public void Update(string title, string description)
     {
+        if (string.IsNullOrEmpty(title))
+            throw new ValidationException("Title is required");
+        if (string.IsNullOrEmpty(description))  
+            throw new ValidationException("Description is required");
         Title = title;
         Description = description;
         UpdatedAt = DateTime.Now;
