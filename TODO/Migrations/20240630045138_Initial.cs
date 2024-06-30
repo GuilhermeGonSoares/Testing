@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -15,9 +16,9 @@ namespace TODO.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Username = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Username = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,14 +29,14 @@ namespace TODO.Migrations
                 name: "Todos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
-                    IsCompleted = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: false),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    IsCompleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {

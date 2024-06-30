@@ -1,0 +1,27 @@
+﻿services:
+  todo:
+    image: todo
+    build:
+      context: .
+      dockerfile: TODO/Dockerfile
+    volumes:
+      - ./TODO:/app/TODO:rw
+      - ./data:/app/data
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest  
+    environment:
+      POSTGRES_DB: todo
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./data:/var/data
+    ports:
+        - "5432:5432"

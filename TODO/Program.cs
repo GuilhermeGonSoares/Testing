@@ -13,7 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlite("Data Source=todo.db");
+    options.UseNpgsql("Host=localhost;Port=5432;Database=todo;Username=postgres;Password=postgres");
 });
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
@@ -33,3 +33,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program
+{
+}
