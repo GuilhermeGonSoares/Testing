@@ -76,7 +76,7 @@ Oferece uma forma robusta e flexível de configurar o ambiente de teste que disf
       {
           services.Remove(descriptor);
       }
-      // Adicione o DbContext com SQLite em memória
+      // Adicione o DbContext com Posgresql para teste
       services.AddDbContext<ApplicationDbContext>(options =>
       {
           options.UseNpgsql("Host=localhost;Port=5432;Database=todo-test;Username=postgres;Password=postgres");
