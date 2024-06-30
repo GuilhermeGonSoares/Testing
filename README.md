@@ -79,14 +79,24 @@ Oferece uma forma robusta e flexível de configurar o ambiente de teste que disf
       // Adicione o DbContext com Posgresql para teste
       services.AddDbContext<ApplicationDbContext>(options =>
       {
-          options.UseNpgsql("Host=localhost;Port=5432;Database=todo-test;Username=postgres;Password=postgres");
+          options.UseNpgsql("Host=localhost;Port=5432;Database=todo-test;Username=test-postgres;Password=test-postgres");
       });
       
     ```
+    Caso queira utilizar o "mesmo container":(Powershell)
+   ```sh
+       docker run -d `
+      --name integration-testing `
+      -e POSTGRES_DB="todo-test" `
+      -e POSTGRES_USER="test-postgres" `
+      -e POSTGRES_PASSWORD="test-postgres" `
+      -p 5432:5432 `
+      postgres:latest
+   ```
 
-4. Implementar a inteface `IAsyncLifetime`na classe que herda WebApplicationFactory: Com essa interface podemos sobrescrever os métodos `InitializeAsync` e `DisposeAsync` . Para realizar operações assíncronas de inicialização e limpeza, muito útil para a configuração do nosso banco de teste porque queremos criar o banco, aplicar as migrations e depois queremos deletar o banco. Com essa interface conseguimos uma redução no compartilhamento de estado entre os testes. Usando `InitializeAsync` para configurar um novo ambiente de teste e `DisposeAsync` para limpar após cada teste, você pode reduzir o risco de estado compartilhado entre testes, o que aumenta a confiabilidade dos resultados dos testes.
+5. Implementar a inteface `IAsyncLifetime`na classe que herda WebApplicationFactory: Com essa interface podemos sobrescrever os métodos `InitializeAsync` e `DisposeAsync` . Para realizar operações assíncronas de inicialização e limpeza, muito útil para a configuração do nosso banco de teste porque queremos criar o banco, aplicar as migrations e depois queremos deletar o banco. Com essa interface conseguimos uma redução no compartilhamento de estado entre os testes. Usando `InitializeAsync` para configurar um novo ambiente de teste e `DisposeAsync` para limpar após cada teste, você pode reduzir o risco de estado compartilhado entre testes, o que aumenta a confiabilidade dos resultados dos testes.
 
-5. Utilização da interface IClassFixture<T> nos testes:
+6. Utilização da interface IClassFixture<T> nos testes:
 
     a. O `IClassFixture<T>` é uma interface no framework de testes xUnit para C#, e ela é usada para implementar o padrão de design conhecido como "fixture setup" ou "test fixture". A principal função da `IClassFixture<T>` é fornecer uma maneira de criar uma instância de uma classe que contém dados ou serviços necessários para a execução dos testes, e compartilhá-la entre todos os testes na classe de teste, sem reinicializá-la a cada método de teste. Isso é especialmente útil quando a inicialização é custosa em termos de tempo ou recursos.
 
