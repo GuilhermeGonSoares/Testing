@@ -12,7 +12,7 @@ using TODO.Database;
 namespace TODO.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240630045138_Initial")]
+    [Migration("20240630224519_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -52,7 +52,7 @@ namespace TODO.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -84,7 +84,8 @@ namespace TODO.Migrations
                     b.HasOne("TODO.Entities.User", null)
                         .WithMany("AllTodos")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TODO.Entities.User", b =>

@@ -49,7 +49,7 @@ namespace TODO.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -81,7 +81,8 @@ namespace TODO.Migrations
                     b.HasOne("TODO.Entities.User", null)
                         .WithMany("AllTodos")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TODO.Entities.User", b =>

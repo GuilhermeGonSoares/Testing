@@ -26,20 +26,20 @@ public class Todo
         Title = title;
         Description = description;
         IsCompleted = false;
-        CreatedAt = DateTime.Now;
-        UpdatedAt = DateTime.Now;
+        CreatedAt = DateTime.UtcNow;
+        UpdatedAt = DateTime.UtcNow;
     }
     
     public void MarkAsCompleted()
     {
         IsCompleted = true;
-        UpdatedAt = DateTime.Now;
+        UpdatedAt = DateTime.UtcNow;
     }
     
     public void MarkAsUncompleted()
     {
         IsCompleted = false;
-        UpdatedAt = DateTime.Now;
+        UpdatedAt = DateTime.UtcNow;
     }
     
     public void Update(string title, string description)
@@ -50,6 +50,6 @@ public class Todo
             throw new ValidationException("Description is required");
         Title = title;
         Description = description;
-        UpdatedAt = DateTime.Now;
+        UpdatedAt = DateTime.UtcNow;
     }
 }

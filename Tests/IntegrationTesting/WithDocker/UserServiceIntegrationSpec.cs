@@ -5,7 +5,7 @@ using TODO.Entities;
 using TODO.Repositories;
 using TODO.Services;
 
-namespace Tests.IntegrationTesting;
+namespace Tests.IntegrationTesting.WithDocker;
 
 public class UserServiceIntegrationSpec(IntegrationTestWebAppFactory factory) : BaseIntegrationTest(factory)
 {

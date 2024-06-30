@@ -5,10 +5,11 @@ namespace TODO.Entities;
 
 public class User : IAggregateRoot
 {
+    private readonly List<Todo> _todos = [];
     public int Id { get; init; }
     public string Username { get; private set;}
-    private ICollection<Todo> Todos { get; }
-    
+    public ICollection<Todo> AllTodos => _todos.ToList();
+
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public User()
     {
@@ -20,30 +21,27 @@ public class User : IAggregateRoot
         if (string.IsNullOrEmpty(username))
             throw new ValidationException("Username is required");
         Username = username;
-        Todos = [];
+        _todos = [];
     }
-    
-    public IReadOnlyCollection<Todo> AllTodos => Todos.ToList().AsReadOnly();
-
     public void AddTodo(Todo newTodo)
     {
-        var existedTodo = Todos.FirstOrDefault(t => t.Id == newTodo.Id);
+        var existedTodo = _todos.FirstOrDefault(t => t.Id == newTodo.Id);
         if (existedTodo is not null)
             throw new AlreadyExist("Todo already exists");  
-        Todos.Add(newTodo);
+        _todos.Add(newTodo);
     }
     
     public void RemoveTodoById(int todoId)
     {
-        var todo = Todos.FirstOrDefault(t => t.Id == todoId);
+        var todo = _todos.FirstOrDefault(t => t.Id == todoId);
         if (todo is null)
             return;
-        Todos.Remove(todo);
+        _todos.Remove(todo);
     }
     
     public void UpdateTodoById(int todoId, string title, string description)
     {
-        var todo = Todos.FirstOrDefault(t => t.Id == todoId);
+        var todo = _todos.FirstOrDefault(t => t.Id == todoId);
         if (todo is null)
             throw new NotFoundException("Todo not found");
         todo.Update(title, description);
@@ -51,7 +49,7 @@ public class User : IAggregateRoot
     
     public void MarkTodoAsCompleted(int todoId)
     {
-        var todo = Todos.FirstOrDefault(t => t.Id == todoId);
+        var todo = _todos.FirstOrDefault(t => t.Id == todoId);
         if (todo is null)
             throw new NotFoundException("Todo not found");
         todo.MarkAsCompleted();
@@ -59,7 +57,7 @@ public class User : IAggregateRoot
     
     public void MarkTodoAsUncompleted(int todoId)
     {
-        var todo = Todos.FirstOrDefault(t => t.Id == todoId);
+        var todo = _todos.FirstOrDefault(t => t.Id == todoId);
         if (todo is null)
             throw new NotFoundException("Todo not found");
         todo.MarkAsUncompleted();

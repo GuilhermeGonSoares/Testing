@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TODO.Database;
 
-namespace Tests.IntegrationTesting;
+namespace Tests.IntegrationTesting.WithDocker;
 
 public abstract class BaseIntegrationTest : IClassFixture<IntegrationTestWebAppFactory>
 {

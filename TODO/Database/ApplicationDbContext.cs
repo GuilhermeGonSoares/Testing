@@ -16,7 +16,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             entity.HasKey(u => u.Id);
             entity.Property(u => u.Id).ValueGeneratedOnAdd();
             entity.Property(u => u.Username).IsRequired();
-            entity.HasMany(u => u.AllTodos).WithOne().HasForeignKey("UserId").OnDelete(DeleteBehavior.Cascade);
+            entity.HasMany(u => u.AllTodos).WithOne().HasForeignKey("UserId").IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
         });
         
         modelBuilder.Entity<Todo>(entity =>
